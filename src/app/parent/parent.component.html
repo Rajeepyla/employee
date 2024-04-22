@@ -1,0 +1,35 @@
+<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary w-100">Add New Employee</button>
+<br>
+
+
+<table class="table">
+<thead>
+  <tr>
+    <th>S.No</th>
+    <th>Name</th>
+    <th>Designation</th>
+    <th>Actions</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let employee of employeeList">
+    <td>{{employee.id}}</td>
+    <td>{{employee.name}}</td>
+    <td>{{employee.designation}}</td>
+    <td>  &nbsp;
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" (click)="editDetails(employee)">Edit </button> &nbsp;
+      <button class="btn btn-danger" (click)="toDeleteDetails(employee.id)" > Delete</button> </td>
+  </tr>
+</tbody>
+</table>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+   <app-child [details]="parentToChild"></app-child>
+   
+  </div>
+</div>

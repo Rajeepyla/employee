@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from './service.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ServiceService } from '../service.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-parent',
+  templateUrl: './parent.component.html',
+  styleUrls: ['./parent.component.scss']
 })
-export class AppComponent implements OnInit {
+export class ParentComponent implements OnInit {
 
   employeeList: any
-
+parentToChild:any;
   constructor(private api: ServiceService) { }
   ngOnInit(): void {
     this.getAllDetails();
   }
-
 
   protected employeeDetails: FormGroup = new FormGroup({
     id: new FormControl(null),
@@ -25,8 +24,8 @@ export class AppComponent implements OnInit {
   })
 
 
-  protected createDetails(){
-this.employeeDetails.reset()
+  protected createDetails() {
+    this.employeeDetails.reset()
   }
 
   private getAllDetails() {
@@ -43,30 +42,35 @@ this.employeeDetails.reset()
       designation: employeeDetails.designation,
       email: employeeDetails.email
     })
+    console.log(employeeDetails)
+    
+    this.parentToChild=employeeDetails
   }
 
   protected saveChanges() {
-    const closeDropdown= document.getElementById('close')
-  if(this.employeeDetails.value.id){
-    this.api.updateDetails(this.employeeDetails.value).subscribe((data:any)=>{
-      console.log(data)
-      this.getAllDetails()
-    })
-  }
-  else{
-    this.api.createDetails(this.employeeDetails.value).subscribe((data:any)=>{
-      console.log(data)
-      this.getAllDetails()
-    })
-  }
-  closeDropdown?.click()
+    const closeDropdown = document.getElementById('close')
+    if (this.employeeDetails.value.id) {
+      this.api.updateDetails(this.employeeDetails.value).subscribe((data: any) => {
+        console.log(data)
+        this.getAllDetails()
+      })
+    }
+    else {
+      this.api.createDetails(this.employeeDetails.value).subscribe((data: any) => {
+        console.log(data)
+        this.getAllDetails()
+      })
+    }
+    closeDropdown?.click()
   }
 
   protected toDeleteDetails(employeeId: number) {
     this.api.removeEmployee(employeeId).subscribe((data: any) => {
       this.employeeDetails.reset()
     })
-   
+
   }
 
+ 
 }
+

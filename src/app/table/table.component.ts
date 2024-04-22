@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from './service.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ServiceService } from '../service.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
-export class AppComponent implements OnInit {
+export class TableComponent implements OnInit {
 
   employeeList: any
 
